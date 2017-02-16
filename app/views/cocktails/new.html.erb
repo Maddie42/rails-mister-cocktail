@@ -1,0 +1,14 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<div class="title text-center">
+  <h1>New Cocktail</h1>
+  <p>Create a new cocktail</p>
+</div>
+
+<div class="container">
+  <%= simple_form_for @cocktail do |f| %>
+    <%= f.input :name, label: "Entrez votre cocktail", input_html: {size: "10"}%>
+    <%= f.button :submit%>
+  <% end %>
+</div>
