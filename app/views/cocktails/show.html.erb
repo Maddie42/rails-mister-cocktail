@@ -1,41 +1,22 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-
-<div class="banner" style="background: rgba(255, 0, 255, 0.6)">
-  <div class="title">
-    <h1>Cocktail</h1>
-    <p>Show my cocktail</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <h1><%= @cocktail.name %></h1>
+      <% if @cocktail.picture? %>
+        <%= cl_image_tag @cocktail.picture.path, width: 200, height: 300, crop: :fill %>
+      <% end %>
+      <p>Recette</p>
+      <ul>
+        <% @cocktail.doses.each do |dose| %>
+          <li><%= dose.description %> - <%= dose.ingredient.name %> - <%= link_to "delete", dose_path(dose), method: :delete %></li>
+        <% end %>
+      </ul>
+      <%= link_to 'Back', cocktails_path %>
+    </div>
   </div>
 </div>
 
+<p>Ici on peut créer une nouvelle dose</p>
 
-<div class="text-right">
-  <%= link_to "Liste des Cocktails", cocktails_path %>
-</div>
+<%= render 'cocktails/doses_form' %>
 
-<div class="text-center">
-  <h2><%= @cocktail.name %></h2>
-</div>
-
-<!-- <div class="text-center">
-  <button type="button" class="btn btn-outline-success btn-lg">
-    <%#= link_to "add a dose", new_cocktail_dose_path(@cocktail) %>
-  </button>
-</div> -->
-
-<div class="list_review">
-  <% @cocktail.doses.each do |dose| %>
-  <%= dose.description %>
-  <%= dose.ingredient.name %>
-  <% end %>
-</div>
-
-
-<div class="adddose">
-  <%= simple_form_for [@cocktail, @dose] do |f| %>
-    <%= f.input :description %>
-    <%= f.input :ingredient, collection: Ingredient.all %>
-    <%= f.submit "add a dose", class: "btn btn-outline-success" %>
-  <% end %>
-</div>

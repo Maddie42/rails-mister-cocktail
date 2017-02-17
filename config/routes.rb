@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  root to: 'cocktails#index'
+  mount Attachinary::Engine => "/attachinary"
 
-  resources :cocktails, only: [ :index, :show, :new, :create, :edit, :update] do
-    resources :doses, only: [ :new, :create]
+  resources :cocktails, only: [:show, :index, :new, :create] do
+    resources :doses, only: [:create]
   end
   resources :doses, only: [:destroy]
+  root "cocktails#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
